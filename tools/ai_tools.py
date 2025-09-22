@@ -1770,7 +1770,7 @@ def conversational_ai():
                 st.markdown(f"""
                 <div style="background: linear-gradient(135deg, rgba(150, 255, 150, 0.1), rgba(255, 150, 150, 0.1)); 
                             padding: 1rem; border-radius: 10px; margin: 0.5rem 0; border-left: 4px solid #64ff96;">
-                    <strong>🤪 Vatsal :</strong><br>
+                    <strong>🫠 Vatsal :</strong><br>
                     {exchange['ai']}
                 </div>
                 """, unsafe_allow_html=True)
@@ -4411,4 +4411,5 @@ Refinement Type: {refinement_type}"""
                         st.subheader("Content Summary")
                         st.write(summary)
             else:
+
                 st.error("Failed to refine content. Please try again.")
