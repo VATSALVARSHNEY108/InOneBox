@@ -168,8 +168,6 @@ def main():
     with nav_col1:
         # Search functionality with advanced features
         search_query = st.text_input("🔍 Search Tools", placeholder="Type to search...", key="search_tools")
-        search_filter = st.selectbox("🔍 Filter by Category", ["All"] + list(TOOL_CATEGORIES.keys()), index=0)
-
     with nav_col2:
         # Category selection
         selected_category = st.selectbox(
@@ -267,4 +265,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
