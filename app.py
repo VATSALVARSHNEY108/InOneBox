@@ -146,6 +146,14 @@ def main():
     st.markdown("""
     <div style="text-align: center; margin-bottom: 2rem;">
         <h1>🛠️ In One Box </h1>
+        <p class="gradient-text">वत्सल वार्ष्णेय</p>
+        <style>
+        .gradient-text {
+          font-size: 40px;
+          font-weight: bold;
+          background: linear-gradient(90deg, purple, white);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         <div style="background: linear-gradient(45deg, #a8c8ff, #c4a7ff); 
                     -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
                     background-clip: text; font-size: 1.2rem; font-weight: 500;">
@@ -264,4 +272,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()
