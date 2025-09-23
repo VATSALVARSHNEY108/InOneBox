@@ -1,111 +1,131 @@
-__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import os
 import json
 from datetime import datetime
 from PIL import Image
 import base64
-from tools import ai_tools
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
 
 def display_connect_page():
-    """Display the Connect page as a portfolio with photo gallery"""
-    # Portfolio page header
+    """Display the Connect page with profile and feedback"""
+    # Profile page header
     st.markdown("""
     <div style="text-align: center; margin-bottom: 2rem;">
-        <h1>🎨 My Portfolio & Connect</h1>
+        <h1>👨‍💻 About Me & Connect</h1>
         <div style="background: linear-gradient(45deg, #a8c8ff, #c4a7ff); 
                     -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
                     background-clip: text; font-size: 1.2rem; font-weight: 500;">
-            ✨ Explore my work, share your creations, and let's connect ✨
+            ✨ Learn about me, my work, and let's connect ✨
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Portfolio Gallery Section
+    # Profile Section
     st.markdown("---")
-    st.subheader("📸 Portfolio Gallery")
+    st.subheader("👨‍💻 My Profile")
 
     # Create tabs for different sections
-    tab1, tab2, tab3 = st.tabs(["🖼️ Photo Gallery", "📤 Upload Your Work", "💬 Connect & Feedback"])
+    tab1, tab2, tab3 = st.tabs(["👤 About Me", "📤 Upload Your Work", "💬 Connect & Feedback"])
 
     with tab1:
-        display_contact_section()
-        
-    with tab2:
-        display_portfolio_gallery()
+        display_profile_section()
 
-    with tab3:
+    with tab2:
         display_upload_section()
 
+    with tab3:
+        display_contact_section()
 
-def display_portfolio_gallery():
-    """Display the portfolio gallery with uploaded photos"""
-    st.markdown("### 🎨 Featured Work & Gallery")
 
-    # Portfolio categories
-    category = st.selectbox("Browse by category:", [
-        "All Works", "Photography", "Digital Art", "UI/UX Design",
-        "Web Development", "Graphics", "User Submissions"
-    ])
+def display_profile_section():
+    """Display Vatsal's profile section"""
+    # Profile layout
+    col1, col2 = st.columns([1, 2])
 
-    # Check for uploaded images in attached_assets
-    portfolio_dir = "attached_assets"
-    if os.path.exists(portfolio_dir):
-        image_files = [f for f in os.listdir(portfolio_dir)
-                       if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'))]
+    with col1:
+        # Profile image section
+        st.markdown("### 📸 Profile Photo")
 
-        if image_files:
-            st.success(f"📸 Found {len(image_files)} images in portfolio")
+        # Check if profile image exists
+        profile_image_path = None
+        portfolio_dir = "attached_assets"
+        if os.path.exists(portfolio_dir):
+            # Look for profile image (you can upload one)
+            profile_images = [f for f in os.listdir(portfolio_dir)
+                              if f.lower().startswith('profile') and f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+            if profile_images:
+                profile_image_path = os.path.join(portfolio_dir, profile_images[0])
 
-            # Display images in a grid
-            cols = st.columns(3)
-            for i, image_file in enumerate(image_files):
-                with cols[i % 3]:
-                    try:
-                        image_path = os.path.join(portfolio_dir, image_file)
-                        image = Image.open(image_path)
-
-                        # Create thumbnail
-                        thumbnail = image.copy()
-                        thumbnail.thumbnail((300, 300))
-
-                        st.image(thumbnail, caption=image_file, use_column_width=True)
-
-                        # Image details
-                        with st.expander(f"Details: {image_file}"):
-                            st.write(f"**Filename:** {image_file}")
-                            st.write(f"**Size:** {image.size}")
-                            st.write(f"**Format:** {image.format}")
-
-                            # Download option
-                            with open(image_path, "rb") as file:
-                                st.download_button(
-                                    f"⬇️ Download {image_file}",
-                                    file.read(),
-                                    file_name=image_file,
-                                    mime="image/png"
-                                )
-                    except Exception as e:
-                        st.error(f"Error loading {image_file}: {e}")
+        if profile_image_path and os.path.exists(profile_image_path):
+            try:
+                profile_image = Image.open(profile_image_path)
+                # Display high-quality, larger profile image
+                st.image(profile_image, width=400, caption="Vatsal Varshney - AI/ML Engineer")
+            except Exception as e:
+                st.error(f"Error loading profile image: {e}")
         else:
-            st.info("📷 No portfolio images found. Upload some images in the 'Upload Your Work' tab!")
-    else:
-        st.info("📁 Portfolio directory not found. Upload some images to get started!")
+            # Placeholder for profile image - larger and higher quality
+            st.markdown("""
+            <div style="
+                width: 400px; 
+                height: 400px; 
+                background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 8rem;
+                margin: 1rem 0;
+                box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+                border: 4px solid rgba(255, 255, 255, 0.2);
+            ">
+                👨‍💻
+            </div>
+            """, unsafe_allow_html=True)
+            st.caption(
+                "Upload a profile image named 'profile.jpg' to display here (400x400px recommended for best quality)")
 
-    # Portfolio stats
-    if os.path.exists(portfolio_dir):
-        total_files = len([f for f in os.listdir(portfolio_dir) if os.path.isfile(os.path.join(portfolio_dir, f))])
-        image_count = len([f for f in os.listdir(portfolio_dir)
-                           if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'))])
+    with col2:
+        # Profile information
+        st.markdown("### 👋 Hello, I'm Vatsal Varshney!")
 
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Total Files", total_files)
-        with col2:
-            st.metric("Images", image_count)
-        with col3:
-            st.metric("Categories", "6")
+        st.markdown("""
+        **🤖 AI/ML Engineer**
+
+        I'm passionate about artificial intelligence and machine learning, creating innovative solutions 
+        that make a real difference. This toolkit represents my commitment to making AI tools accessible 
+        and useful for everyone.
+
+        ### 🎯 What I Do
+        - **Machine Learning**: Building intelligent systems and predictive models
+        - **AI Development**: Creating AI-powered applications and tools
+        - **Data Science**: Extracting insights from complex datasets
+        - **Software Engineering**: Developing robust, scalable solutions
+
+        ### 🛠️ Technologies & Skills
+        - **Languages**: Python, JavaScript, SQL
+        - **ML/AI**: TensorFlow, PyTorch, Scikit-learn, OpenAI API
+        - **Tools**: Streamlit, Pandas, NumPy, Git, Docker
+        - **Cloud**: AWS, Google Cloud, Azure
+
+        ### 🌟 This Toolkit
+        This comprehensive AI toolkit showcases various AI and ML capabilities, from image processing 
+        to text analysis, data visualization, and much more. It's designed to be both educational 
+        and practical for real-world applications.
+        """)
+
+        # Achievement metrics
+        st.markdown("### 📊 Quick Stats")
+        col_a, col_b, col_c = st.columns(3)
+        with col_a:
+            st.metric("AI Tools Built", "50+")
+        with col_b:
+            st.metric("Technologies", "25+")
+        with col_c:
+            st.metric("Happy Users", "1000+")
 
 
 def display_upload_section():
@@ -235,17 +255,36 @@ def display_contact_section():
 
         if st.button("📤 Send Feedback", type="primary"):
             if message and subject:
-                # Store feedback (in a real app, you'd send this to a backend)
-                st.success("✅ Thank you for your feedback! I'll review it and get back to you if needed.")
-                st.balloons()
+                # Save feedback to database
+                try:
+                    conn = psycopg2.connect(os.getenv('DATABASE_URL'))
+                    cursor = conn.cursor()
 
-                # Display what was submitted (for demo purposes)
-                with st.expander("📋 Feedback Submitted"):
-                    st.write(f"**Type:** {feedback_type}")
-                    if name: st.write(f"**Name:** {name}")
-                    if email: st.write(f"**Email:** {email}")
-                    st.write(f"**Subject:** {subject}")
-                    st.write(f"**Message:** {message}")
+                    insert_query = """
+                    INSERT INTO user_feedback (feedback_type, name, email, subject, message)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """
+
+                    cursor.execute(insert_query, (
+                        feedback_type,
+                        name if name else None,
+                        email if email else None,
+                        subject,
+                        message
+                    ))
+
+                    conn.commit()
+                    cursor.close()
+                    conn.close()
+
+                    st.success("✅ Thank you for your feedback! I'll review it and get back to you if needed.")
+                    st.balloons()
+
+                    # Show confirmation that it was saved
+                    st.info("💾 Your feedback has been saved to the database for review.")
+
+                except Exception as e:
+                    st.error(f"❌ Sorry, there was an error saving your feedback. Please try again. Error: {e}")
             else:
                 st.error("Please fill in both subject and message fields.")
 
@@ -263,10 +302,11 @@ def display_contact_section():
         # Social and contact links
         social_links = [
             ("🐙 GitHub", "https://github.com/VATSALVARSHNEY108", "View my projects and code"),
-            ("💼 LinkedIn", "https://www.linkedin.com/in/vatsal-varshney108/", "Connect professionally"),
-            ("🐦 Twitter", "https://twitter.com/username", "Follow me for updates"),
-            ("📧 Email", "vatsalworkingat19@gmail.com", "Send me a direct email"),
-            ("📱Mobile Number","9068633298","Contact Me"),
+            ("💼 LinkedIn", "https://www.linkedin.com/feed/", "Connect professionally"),
+            ("📧 Email", "mailto:vatsalworkingat19.com", "Send me a direct email"),
+            ("📞 Contact", "tel:+919068633298", "Call me or WhatsApp"),
+            ("🟧 LeetCode", "https://leetcode.com/u/VATSAL_VARSHNEY/", "Check Out My LeetCode Profile"),
+            ("🔵 Codeforces", "https://codeforces.com/profile/Vatsal_Varshney-69", "Check Out My Codeforces Profile")
         ]
 
         for icon_name, link, description in social_links:
@@ -316,6 +356,3 @@ def display_contact_section():
     for i, faq in enumerate(faqs):
         with st.expander(f"**{faq['question']}**"):
             st.write(faq['answer'])
-
-
-
