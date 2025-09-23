@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import math
 import numpy as np
@@ -9,8 +10,6 @@ from utils.file_handler import FileHandler
 
 
 def display_tools():
-    """Display all science and math tools"""
-
     tool_categories = {
         "Basic Math": [
             "Calculator", "Unit Converter", "Percentage Calculator", "Fraction Calculator", "Ratio Calculator"
@@ -4125,4 +4124,5 @@ def confidence_intervals():
             st.success(f"**{confidence}% Confidence Interval: [{ci_lower:.4f}, {ci_upper:.4f}]**")
             st.write(f"Sample proportion: {p_hat:.4f} = {p_hat * 100:.2f}%")
             st.write(f"Margin of error: ±{margin_error:.4f}")
+
             st.write(f"Standard error: {se:.4f}")
