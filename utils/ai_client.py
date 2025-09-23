@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import os
 import json
 import streamlit as st
@@ -6,7 +7,7 @@ import requests
 import base64
 import tempfile
 
-# Using only Gemini API for all AI functionality
+# Using only Gemini API for all AI functionality baaki ki apis nahi mil rahi thi isliye 
 
 # Gemini integration for multimodal AI - using google-genai SDK
 try:
@@ -443,3 +444,4 @@ class AIClient:
 
 # Global AI client instance
 ai_client = AIClient()
+
