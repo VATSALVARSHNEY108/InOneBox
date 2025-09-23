@@ -106,8 +106,8 @@ def display_profile_section():
         - **Software Engineering**: Developing robust, scalable solutions
 
         ### 🛠️ Technologies & Skills
-        - **Languages**: Python, JavaScript, SQL
-        - **ML/AI**: TensorFlow, PyTorch, Scikit-learn, OpenAI API
+        - **Languages**: Python, C++ , SQL
+        - **ML/AI**: TensorFlow, PyTorch, Scikit-learn, LangChain , LangGraph
         - **Tools**: Streamlit, Pandas, NumPy, Git, Docker
         - **Cloud**: AWS, Google Cloud, Azure
 
@@ -356,3 +356,4 @@ def display_contact_section():
     for i, faq in enumerate(faqs):
         with st.expander(f"**{faq['question']}**"):
             st.write(faq['answer'])
+
