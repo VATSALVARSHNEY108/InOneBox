@@ -20,20 +20,20 @@
 
 | Category | Tools | Description |
 |----------|-------|-------------|
+| 🤖 **AI Tools** | 20+ | Text generation, image creation, analysis |
+| 🎵 **Audio/Video** | 25+ | Conversion, editing, compression |
+| 💻 **Coding Tools** | 45+ | Formatters, validators, documentation |
+| 🎨 **CSS Tools** | 30+ | Generators, validators, preprocessors |
+| 📊 **Data Tools** | 25+ | CSV processing, JSON formatters |
+| 📁 **File Tools** | 40+ | Management, conversion, organization |
 | 📝 **Text Tools** | 50+ | Encoding, formatting, analysis, converters |
 | 🖼️ **Image Tools** | 40+ | Editing, conversion, effects, optimization |
 | 🔒 **Security Tools** | 35+ | Encryption, authentication, vulnerability testing |
-| 🎨 **CSS Tools** | 30+ | Generators, validators, preprocessors |
-| 💻 **Coding Tools** | 45+ | Formatters, validators, documentation |
-| 🎵 **Audio/Video** | 25+ | Conversion, editing, compression |
-| 📁 **File Tools** | 40+ | Management, conversion, organization |
-| 🤖 **AI Tools** | 20+ | Text generation, image creation, analysis |
+| 📈 **Analytics** | 15+ | SEO tools, performance analyzers |
 | 📱 **Social Media** | 15+ | Scheduling, analytics, content creation |
 | 🧮 **Math/Science** | 30+ | Calculators, converters, analyzers |
 | 🌐 **Web Dev** | 35+ | HTML/CSS/JS tools, API testing |
-| 📊 **Data Tools** | 25+ | CSV processing, JSON formatters |
 | 🎯 **Productivity** | 20+ | QR codes, color pickers, timers |
-| 📈 **Analytics** | 15+ | SEO tools, performance analyzers |
 
 ### 🚀 Key Capabilities
 - **500+ Professional Tools** in one unified platform
@@ -47,7 +47,7 @@
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.8 or higher
+- Python 3.11 
 - pip package manager
 
 ### Installation
@@ -65,11 +65,11 @@ pip install -r requirements.txt
 
 3. **Run the application**
 ```bash
-streamlit run app.py --server.port 5000
+streamlit run app.py --server.port 8500
 ```
 
 4. **Open your browser**
-Navigate to `http://localhost:5000`
+Navigate to `http://localhost:8500`
 
 ## 📦 Dependencies
 
@@ -277,5 +277,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **⭐ Star this repository if you find it useful! ⭐**
 
 Made with ❤️ and lots of ☕
+
 
 </div>
