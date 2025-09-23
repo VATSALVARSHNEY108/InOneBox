@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter, ImageOps
@@ -14,8 +15,6 @@ import colorsys
 
 
 def display_tools():
-    """Display all image processing tools"""
-
     tool_categories = {
         "Conversion Tools": [
             "Format Converter", "Batch Converter", "Animated GIF Creator", "PDF to Image", "SVG Converter"
@@ -6401,4 +6400,5 @@ def visual_search():
 
             except Exception as e:
                 st.error(f"Error during visual search: {str(e)}")
+
 
