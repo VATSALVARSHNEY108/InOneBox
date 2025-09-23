@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import io
 import json
@@ -9,7 +10,6 @@ from utils.ai_client import ai_client
 
 
 def display_tools():
-    """Display all audio/video tools"""
 
     tool_categories = {
         "Audio/Video Conversion": [
@@ -6557,3 +6557,4 @@ def sound_generation():
                 "• **Nature Sounds** - Generate realistic natural environment audio\\n"
                 "• **Custom Audio** - Create unique sounds based on detailed descriptions\\n\\n"
                 "Select a generation type above and configure your preferences to create original audio content!")
+
