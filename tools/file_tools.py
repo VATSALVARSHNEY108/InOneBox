@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import zipfile
 import tarfile
@@ -21,8 +22,6 @@ import tempfile
 
 
 def display_tools():
-    """Display all file management tools"""
-
     tool_categories = {
         "File Converters": [
             "Document Converter", "Image Format Converter", "Archive Converter"
@@ -5144,3 +5143,4 @@ def create_category_archive(files, category_name):
     filename = f"{category_name.lower().replace(' ', '_')}_files.zip"
 
     FileHandler.create_download_link(archive_data, filename, "application/zip")
+
