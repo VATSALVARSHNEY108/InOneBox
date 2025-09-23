@@ -2,7 +2,6 @@ __author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import sys
 from pathlib import Path
-
 from connect import display_connect_page
 
 # Add project root to Python path for local development
@@ -266,6 +265,5 @@ def main():
 if __name__ == "__main__":
 
     main()
-
 
 
