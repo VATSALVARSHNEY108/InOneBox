@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import re
 import json
@@ -7,8 +8,6 @@ from utils.file_handler import FileHandler
 
 
 def display_tools():
-    """Display all CSS tools"""
-
     tool_categories = {
         "CSS Generators": [
             "Gradient Generator", "Shadow Generator", "Border Radius Generator", "Flexbox Generator", "Grid Generator"
@@ -9019,3 +9018,4 @@ def get_harmony_recommendation(harmony_type, score):
     }
 
     return recommendations.get(harmony_type, "General purpose design")
+
