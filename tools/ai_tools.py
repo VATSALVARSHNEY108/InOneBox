@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import json
 import base64
@@ -7,6 +8,120 @@ from datetime import datetime
 from utils.common import create_tool_header, show_progress_bar, add_to_recent
 from utils.file_handler import FileHandler
 from utils.ai_client import ai_client
+
+
+def build_enhanced_prompt(base_prompt, art_style, mood, image_quality, color_palette, lighting, detail_level,
+                          composition):
+    """Build an enhanced prompt for better image generation"""
+
+    # Quality modifiers
+    quality_modifiers = {
+        "Standard": "",
+        "High Quality": "high quality, detailed, professional",
+        "Ultra High Quality": "ultra high quality, extremely detailed, masterpiece, professional photography",
+        "Professional": "professional quality, studio lighting, commercial grade, highly detailed"
+    }
+
+    # Style modifiers
+    style_modifiers = {
+        "Photorealistic": "photorealistic, realistic, detailed, lifelike",
+        "Digital Art": "digital art, concept art, artstation trending",
+        "Oil Painting": "oil painting, classical art style, painterly, artistic brushstrokes",
+        "Watercolor": "watercolor painting, soft colors, artistic, flowing brushstrokes",
+        "Sketch": "pencil sketch, hand drawn, artistic sketch, detailed line art",
+        "Anime": "anime style, manga style, japanese animation art",
+        "Comic Book": "comic book style, graphic novel art, bold lines, vibrant colors",
+        "Abstract": "abstract art, modern art, artistic interpretation",
+        "Minimalist": "minimalist design, clean, simple, elegant",
+        "Vintage": "vintage style, retro, classic, aged look"
+    }
+
+    # Mood modifiers
+    mood_modifiers = {
+        "Natural": "natural lighting, realistic atmosphere",
+        "Dramatic": "dramatic lighting, intense atmosphere, cinematic",
+        "Peaceful": "calm, serene, peaceful atmosphere, soft lighting",
+        "Energetic": "dynamic, vibrant, energetic atmosphere",
+        "Mysterious": "mysterious atmosphere, moody lighting, enigmatic",
+        "Bright & Cheerful": "bright, cheerful, happy atmosphere, vibrant colors",
+        "Dark & Moody": "dark, moody, atmospheric, dramatic shadows",
+        "Dreamy": "dreamy, ethereal, soft focus, magical atmosphere",
+        "Professional": "professional, clean, polished, commercial quality"
+    }
+
+    # Build the enhanced prompt
+    prompt_parts = [base_prompt]
+
+    # Add style
+    if art_style in style_modifiers:
+        prompt_parts.append(style_modifiers[art_style])
+
+    # Add mood
+    if mood in mood_modifiers:
+        prompt_parts.append(mood_modifiers[mood])
+
+    # Add quality
+    if image_quality in quality_modifiers and quality_modifiers[image_quality]:
+        prompt_parts.append(quality_modifiers[image_quality])
+
+    # Add color palette
+    color_modifiers = {
+        "Natural Colors": "natural colors",
+        "Vibrant": "vibrant colors, saturated, bold",
+        "Pastel": "pastel colors, soft colors, muted tones",
+        "Monochrome": "monochrome, black and white",
+        "Warm Tones": "warm color palette, warm tones",
+        "Cool Tones": "cool color palette, cool tones",
+        "Neon": "neon colors, bright fluorescent colors",
+        "Earth Tones": "earth tones, natural color palette"
+    }
+
+    if color_palette in color_modifiers:
+        prompt_parts.append(color_modifiers[color_palette])
+
+    # Add lighting
+    lighting_modifiers = {
+        "Natural": "natural lighting",
+        "Golden Hour": "golden hour lighting, warm sunlight",
+        "Soft": "soft lighting, diffused light",
+        "Dramatic": "dramatic lighting, strong contrast",
+        "Studio": "studio lighting, professional lighting setup",
+        "Backlit": "backlit, rim lighting",
+        "Low Light": "low light, ambient lighting"
+    }
+
+    if lighting in lighting_modifiers:
+        prompt_parts.append(lighting_modifiers[lighting])
+
+    # Add detail level
+    detail_modifiers = {
+        "Standard": "",
+        "Highly Detailed": "highly detailed, intricate details",
+        "Ultra Detailed": "ultra detailed, extremely intricate, fine details",
+        "Fine Details": "fine details, precise, meticulous",
+        "Intricate": "intricate patterns, complex details, elaborate"
+    }
+
+    if detail_level in detail_modifiers and detail_modifiers[detail_level]:
+        prompt_parts.append(detail_modifiers[detail_level])
+
+    # Add composition
+    composition_modifiers = {
+        "Centered": "centered composition",
+        "Rule of Thirds": "rule of thirds composition",
+        "Close-up": "close-up shot, detailed view",
+        "Wide Shot": "wide shot, expansive view",
+        "Portrait": "portrait orientation, vertical composition",
+        "Landscape": "landscape orientation, horizontal composition"
+    }
+
+    if composition in composition_modifiers:
+        prompt_parts.append(composition_modifiers[composition])
+
+    # Join all parts with commas
+    enhanced_prompt = ", ".join([part for part in prompt_parts if part.strip()])
+
+    return enhanced_prompt
 
 
 def display_tools():
@@ -246,86 +361,121 @@ def content_creator():
 
 
 def ai_art_creator():
-    """AI-powered image generation"""
-    create_tool_header("AI Art Creator", "Generate images using AI", "🎨")
+    """Enhanced AI image generation with Gemini"""
+    create_tool_header("AI Art Creator", "Generate detailed images using Gemini AI", "🎨")
 
-    # Image generation parameters
-    st.subheader("Image Generation Settings")
+    # Enhanced image generation interface
+    st.subheader("Create Your Image")
 
+    # Main prompt
+    prompt = st.text_area(
+        "Describe what you want to create:",
+        placeholder="Example: A majestic mountain landscape with a crystal clear lake",
+        height=100
+    )
+
+    # Style and enhancement options
     col1, col2 = st.columns(2)
+
     with col1:
-        prompt = st.text_area("Image Description",
-                              placeholder="Describe the image you want to create...",
-                              height=100)
-        style = st.selectbox("Art Style", [
-            "Realistic", "Digital Art", "Oil Painting", "Watercolor", "Sketch",
-            "Anime/Manga", "Comic Book", "Abstract", "Surreal", "Minimalist"
-        ])
-        mood = st.selectbox("Mood/Atmosphere", [
-            "Neutral", "Happy", "Dramatic", "Peaceful", "Mysterious", "Energetic", "Melancholic"
-        ])
+        st.subheader("Style Options")
+        art_style = st.selectbox(
+            "Art Style:",
+            ["Photorealistic", "Digital Art", "Oil Painting", "Watercolor", "Sketch",
+             "Anime", "Comic Book", "Abstract", "Minimalist", "Vintage"]
+        )
+
+        mood = st.selectbox(
+            "Mood/Atmosphere:",
+            ["Natural", "Dramatic", "Peaceful", "Energetic", "Mysterious",
+             "Bright & Cheerful", "Dark & Moody", "Dreamy", "Professional"]
+        )
 
     with col2:
-        resolution = st.selectbox("Resolution", ["1024x1024", "1024x768", "768x1024", "512x512"])
-        color_scheme = st.selectbox("Color Scheme", [
-            "Natural", "Vibrant", "Monochrome", "Warm Tones", "Cool Tones", "Pastel", "High Contrast"
-        ])
-        quality = st.selectbox("Quality", ["Standard", "High", "Ultra"])
+        st.subheader("Quality Settings")
+        image_quality = st.selectbox(
+            "Image Quality:",
+            ["Standard", "High Quality", "Ultra High Quality", "Professional"]
+        )
+
+        color_palette = st.selectbox(
+            "Color Palette:",
+            ["Natural Colors", "Vibrant", "Pastel", "Monochrome", "Warm Tones",
+             "Cool Tones", "Neon", "Earth Tones"]
+        )
 
     # Advanced options
-    with st.expander("Advanced Options"):
-        negative_prompt = st.text_area("Negative Prompt (what to avoid)",
-                                       placeholder="low quality, blurry, distorted...")
-        seed = st.number_input("Seed (for reproducibility)", min_value=0, value=0)
-        num_images = st.slider("Number of Images", 1, 4, 1)
+    with st.expander("🔧 Advanced Options"):
+        lighting = st.selectbox(
+            "Lighting:",
+            ["Natural", "Golden Hour", "Soft", "Dramatic", "Studio", "Backlit", "Low Light"]
+        )
 
-    if st.button("Generate Image") and prompt:
-        with st.spinner("Creating AI artwork..."):
-            # Enhanced prompt
-            enhanced_prompt = enhance_image_prompt(prompt, style, mood, color_scheme)
+        detail_level = st.selectbox(
+            "Detail Level:",
+            ["Standard", "Highly Detailed", "Ultra Detailed", "Fine Details", "Intricate"]
+        )
 
-            st.info(f"Enhanced prompt: {enhanced_prompt}")
+        composition = st.selectbox(
+            "Composition:",
+            ["Centered", "Rule of Thirds", "Close-up", "Wide Shot", "Portrait", "Landscape"]
+        )
 
-            # Generate image
+    if st.button("Generate Enhanced Image", type="primary") and prompt:
+        with st.spinner("Creating your detailed image..."):
+            # Build enhanced prompt
+            enhanced_prompt = build_enhanced_prompt(
+                prompt.strip(), art_style, mood, image_quality,
+                color_palette, lighting, detail_level, composition
+            )
+
+            # Show the enhanced prompt to user
+            with st.expander("👀 Enhanced Prompt Used"):
+                st.write(enhanced_prompt)
+
+            # Generate image with enhanced prompt
             image_data = ai_client.generate_image(enhanced_prompt)
 
             if image_data:
-                st.subheader("Generated Artwork")
+                st.subheader("🎨 Your Generated Artwork")
 
                 # Display image
-                st.image(io.BytesIO(image_data), caption="AI Generated Image")
+                st.image(io.BytesIO(image_data), caption="Generated by Gemini AI", use_column_width=True)
 
-                # Image details
-                st.subheader("Generation Details")
-                generation_info = {
-                    "Original Prompt": prompt,
-                    "Enhanced Prompt": enhanced_prompt,
-                    "Style": style,
-                    "Mood": mood,
-                    "Color Scheme": color_scheme,
-                    "Resolution": resolution,
-                    "Generated At": datetime.now().isoformat()
-                }
+                # Generation details
+                st.subheader("📋 Generation Details")
+                details_col1, details_col2 = st.columns(2)
 
-                for key, value in generation_info.items():
-                    st.write(f"**{key}**: {value}")
+                with details_col1:
+                    st.write(f"**Style:** {art_style}")
+                    st.write(f"**Mood:** {mood}")
+                    st.write(f"**Quality:** {image_quality}")
 
-                # Download options
+                with details_col2:
+                    st.write(f"**Colors:** {color_palette}")
+                    st.write(f"**Lighting:** {lighting}")
+                    st.write(f"**Detail Level:** {detail_level}")
+
+                # Download option
                 FileHandler.create_download_link(
                     image_data,
-                    f"ai_artwork_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
+                    f"ai_artwork_{art_style.lower().replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
                     "image/png"
                 )
 
-                # Save generation info
-                info_json = json.dumps(generation_info, indent=2)
-                FileHandler.create_download_link(
-                    info_json.encode(),
-                    f"generation_info_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
-                    "application/json"
-                )
+                st.success("✨ Enhanced image generated successfully!")
+
+                # Regeneration options
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("🔄 Generate Variation"):
+                        st.rerun()
+                with col2:
+                    if st.button("📝 Modify Settings"):
+                        st.info("Adjust the settings above and click 'Generate Enhanced Image' again")
+
             else:
-                st.error("Failed to generate image. Please try again with a different prompt.")
+                st.error("Failed to generate image. Please try adjusting your description or settings.")
 
 
 def sentiment_analysis():
@@ -1844,7 +1994,7 @@ def conversational_ai():
 
 def send_conversational_message(message, model, system_prompt, max_tokens):
     """Send a message in conversational context"""
-    with st.spinner(f"🤖 Vatsal is thinking..."):
+    with st.spinner(f" Vatsal is thinking..."):
         # Build conversation context
         context = f"System: {system_prompt}\n\n"
 
@@ -1994,7 +2144,7 @@ def educational_assistant():
 
             # Tutor response
             with st.chat_message("assistant", avatar="👨‍🏫"):
-                st.write(f"** Vatsal :** {exchange['tutor']}")
+                st.write(f"**Vatsal:** {exchange['tutor']}")
 
     # Student input
     st.markdown("---")
@@ -2064,7 +2214,7 @@ def domain_expert():
 
             # Expert response
             with st.chat_message("assistant", avatar="🏛️"):
-                st.write(f"** Vatsal :** {exchange['expert']}")
+                st.write(f"**Vatsal The Expert:** {exchange['expert']}")
 
     # Client input
     st.markdown("---")
@@ -2132,7 +2282,7 @@ def multi_purpose_bot():
 
             # Assistant response
             with st.chat_message("assistant", avatar="🤖"):
-                st.write(f"** Vatsal :** {exchange['assistant']}")
+                st.write(f"**Assistant:** {exchange['assistant']}")
 
     # User input
     st.markdown("---")
@@ -3346,7 +3496,7 @@ def handle_customer_service(message, business_type, tone, support_level, escalat
 
 def handle_educational_session(question, subject, level, learning_style, approach):
     """Handle educational interaction"""
-    with st.spinner("👨‍🏫 AI Tutor is preparing response..."):
+    with st.spinner("👨‍🏫 Vatsal Tutor is preparing response..."):
         try:
             # Build educational prompt with learning context
             system_prompt = f"You are an expert tutor in {subject} for {level.lower()} students. "
@@ -3384,7 +3534,7 @@ def handle_educational_session(question, subject, level, learning_style, approac
 
 def handle_expert_consultation(query, domain, level, consultation_type, style):
     """Handle domain expert consultation"""
-    with st.spinner("🏛️ Expert is analyzing your question..."):
+    with st.spinner("🏛️ Vatsal is analyzing your question..."):
         try:
             # Build expert prompt with professional context
             system_prompt = f"You are a {level.lower()} in {domain}. "
@@ -4411,5 +4561,4 @@ Refinement Type: {refinement_type}"""
                         st.subheader("Content Summary")
                         st.write(summary)
             else:
-
                 st.error("Failed to refine content. Please try again.")
