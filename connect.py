@@ -117,16 +117,6 @@ def display_profile_section():
         and practical for real-world applications.
         """)
 
-        # Achievement metrics
-        st.markdown("### 📊 Quick Stats")
-        col_a, col_b, col_c = st.columns(3)
-        with col_a:
-            st.metric("AI Tools Built", "50+")
-        with col_b:
-            st.metric("Technologies", "25+")
-        with col_c:
-            st.metric("Happy Users", "1000+")
-
 
 def display_upload_section():
     """Display the upload section for new portfolio items"""
@@ -356,4 +346,5 @@ def display_contact_section():
     for i, faq in enumerate(faqs):
         with st.expander(f"**{faq['question']}**"):
             st.write(faq['answer'])
+
 
