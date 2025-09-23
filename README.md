@@ -54,8 +54,7 @@
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/ultimate-digital-toolkit.git
-cd ultimate-digital-toolkit
+https://github.com/VATSALVARSHNEY108/InOneBox.git
 ```
 
 2. **Install dependencies**
@@ -135,7 +134,8 @@ Navigate to `http://localhost:8500`
 
 ```
 ultimate-digital-toolkit/
-├── app.py                 # Main Streamlit application
+├── app.py
+├── connect.py      
 ├── requirements.txt       # Python dependencies
 ├── .streamlit/
 │   └── config.toml       # Streamlit configuration
@@ -153,6 +153,7 @@ ultimate-digital-toolkit/
 │   ├── common.py
 │   ├── file_handler.py
 │   └── ai_client.py
+|   └── common.py
 └── README.md
 ```
 
@@ -280,3 +281,4 @@ Made with ❤️ and lots of ☕
 
 
 </div>
+
