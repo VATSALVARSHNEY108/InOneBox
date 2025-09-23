@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import colorsys
 import re
@@ -10,8 +11,6 @@ from utils.file_handler import FileHandler
 
 
 def display_tools():
-    """Display all color tools"""
-
     tool_categories = {
         "Color Converters": [
             "RGB to HEX", "HEX to RGB", "HSL Converter", "CMYK Converter", "Color Name Finder"
@@ -2100,4 +2099,5 @@ def color_blindness_simulator():
 
 
 def color_harmony_analyzer():
+
     st.info("Color Harmony Analyzer tool is being implemented. Please check back soon!")
