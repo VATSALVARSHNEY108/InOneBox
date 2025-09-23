@@ -155,12 +155,6 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    # Top Navigation Bar
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, rgba(168, 200, 255, 0.1), rgba(196, 167, 255, 0.1)); 
-                padding: 1rem; border-radius: 10px; margin-bottom: 2rem;
-                border: 1px solid rgba(255, 255, 255, 0.2);">
-    """, unsafe_allow_html=True)
 
     # Top navigation columns
     nav_col1, nav_col2 = st.columns([3,4])
