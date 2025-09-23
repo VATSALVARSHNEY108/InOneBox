@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import json
 import csv
@@ -11,8 +12,6 @@ from utils.ai_client import ai_client
 
 
 def display_tools():
-    """Display all social media tools"""
-
     tool_categories = {
         "Content Schedulers": [
             "Multi-Platform Scheduler", "Content Calendar", "Post Optimizer", "Timing Analyzer", "Bulk Scheduler"
@@ -5451,3 +5450,4 @@ def calculate_comprehensive_roi(ad_spend, content_costs, tool_costs, time_hours,
             'Brand Value': brand_value
         }
     }
+
