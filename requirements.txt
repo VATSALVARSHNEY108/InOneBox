@@ -6,6 +6,7 @@ certifi==2025.8.3
 charset-normalizer==3.4.3
 click==8.2.1
 gitdb==4.0.12
+google-genai
 gitpython==3.1.45
 idna==3.10
 jinja2==3.1.6
@@ -42,4 +43,5 @@ matplotlib
 cryptography
 seaborn
 openai
+
 
