@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import hashlib
 import secrets
@@ -20,8 +21,6 @@ from utils.file_handler import FileHandler
 
 
 def display_tools():
-    """Display all security and privacy tools"""
-
     tool_categories = {
         "Authentication & Access Control": [
             "PAM Tools", "SSO Solutions", "MFA Tools", "IAM Platforms", "Access Review"
@@ -5305,4 +5304,5 @@ def access_review():
 """
 
             st.code(report, language=None)
+
             FileHandler.create_download_link(report.encode(), "access_review_summary.txt", "text/plain")
