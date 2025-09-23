@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -22,8 +23,6 @@ from sklearn.cluster import KMeans
 
 
 def display_tools():
-    """Display all data analysis tools"""
-
     tool_categories = {
         "Data Import/Export": [
             "CSV Converter", "JSON Converter", "Excel Reader", "Data Format Converter", "Database Connector"
@@ -11529,3 +11528,4 @@ Target Column Analysis ({target_column}):
 """
 
     return summary
+
