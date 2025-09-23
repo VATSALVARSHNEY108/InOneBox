@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import re
 import requests
@@ -8,8 +9,6 @@ from utils.file_handler import FileHandler
 
 
 def display_tools():
-    """Display all SEO and marketing tools"""
-
     tool_categories = {
         "SEO Analysis": [
             "Page SEO Analyzer", "Meta Tag Checker", "Keyword Density", "Heading Structure", "Internal Link Checker"
@@ -6466,6 +6465,7 @@ def form_optimizer():
             st.warning("🟡 Good form, but room for improvement")
         else:
             st.error("🔴 Form needs significant optimization")
+
 
 
 import random
