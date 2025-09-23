@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 from typing import List, Optional, Dict, Any
 import io
@@ -9,7 +10,6 @@ import pandas as pd
 
 
 class FileHandler:
-    """Unified file handling utilities for all tools"""
 
     @staticmethod
     def upload_files(file_types: List[str], accept_multiple: bool = False,
@@ -44,7 +44,6 @@ class FileHandler:
 
     @staticmethod
     def create_download_link(data: bytes, filename: str, mime_type: str = "application/octet-stream"):
-        """Create download button for processed files"""
         return st.download_button(
             label=f"📥 Download {filename}",
             data=data,
@@ -54,7 +53,6 @@ class FileHandler:
 
     @staticmethod
     def process_text_file(uploaded_file) -> str:
-        """Process text file upload"""
         try:
             content = uploaded_file.read()
             if isinstance(content, bytes):
@@ -66,7 +64,6 @@ class FileHandler:
 
     @staticmethod
     def process_image_file(uploaded_file) -> Optional[Image.Image]:
-        """Process image file upload"""
         try:
             return Image.open(uploaded_file)
         except Exception as e:
@@ -75,7 +72,6 @@ class FileHandler:
 
     @staticmethod
     def process_csv_file(uploaded_file) -> Optional[pd.DataFrame]:
-        """Process CSV file upload"""
         try:
             return pd.read_csv(uploaded_file)
         except Exception as e:
@@ -84,7 +80,6 @@ class FileHandler:
 
     @staticmethod
     def process_json_file(uploaded_file) -> Optional[Dict[str, Any]]:
-        """Process JSON file upload"""
         try:
             content = uploaded_file.read()
             if isinstance(content, bytes):
@@ -107,7 +102,6 @@ class FileHandler:
 
     @staticmethod
     def batch_process_files(files: List[Any], processor_func, **kwargs):
-        """Process multiple files with progress tracking"""
         results = []
         progress_bar = st.progress(0)
         status_text = st.empty()
@@ -127,14 +121,12 @@ class FileHandler:
 
     @staticmethod
     def display_file_info(uploaded_file):
-        """Display file information"""
         st.write(f"**Filename:** {uploaded_file.name}")
         st.write(f"**Size:** {uploaded_file.size:,} bytes")
         st.write(f"**Type:** {uploaded_file.type}")
 
     @staticmethod
     def save_processed_data(data: Any, filename: str, format_type: str = "json"):
-        """Save processed data in various formats"""
         if format_type == "json":
             json_data = json.dumps(data, indent=2)
             return json_data.encode('utf-8'), "application/json"
@@ -152,3 +144,4 @@ class FileHandler:
                 return str(data).encode('utf-8'), "text/plain"
         else:
             return str(data).encode('utf-8'), "text/plain"
+
