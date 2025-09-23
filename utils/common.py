@@ -1,4 +1,3 @@
-__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import time
 import uuid
@@ -10,6 +9,7 @@ from difflib import SequenceMatcher
 
 
 def init_session_state():
+    """Initialize session state variables"""
     if 'recent_tools' not in st.session_state:
         st.session_state.recent_tools = []
     if 'favorites' not in st.session_state:
@@ -25,6 +25,7 @@ def init_session_state():
 
 
 def add_to_recent(tool_name: str):
+    """Add tool to recent tools list"""
     if tool_name not in st.session_state.recent_tools:
         st.session_state.recent_tools.append(tool_name)
         if len(st.session_state.recent_tools) > 10:
@@ -32,6 +33,7 @@ def add_to_recent(tool_name: str):
 
 
 def add_to_history(operation: str, details: Dict[str, Any]):
+    """Add operation to history"""
     history_entry = {
         'id': str(uuid.uuid4()),
         'timestamp': time.time(),
@@ -44,6 +46,7 @@ def add_to_history(operation: str, details: Dict[str, Any]):
 
 
 def display_tool_grid(categories: Dict[str, Any]):
+    """Display tool categories in a grid layout"""
     cols = st.columns(3)
     for i, (name, info) in enumerate(categories.items()):
         with cols[i % 3]:
@@ -70,6 +73,7 @@ def display_tool_grid(categories: Dict[str, Any]):
 
 
 def build_tool_index():
+    """Build a comprehensive index of all available tools from all modules"""
     if 'tool_index' not in st.session_state:
         tool_index = {}
 
@@ -196,6 +200,7 @@ def search_tools(query: str, categories: Dict[str, Any], filter_category: str = 
 
 
 def get_search_suggestions(query: str) -> List[str]:
+    """Get search suggestions based on query"""
     if not query or len(query.strip()) < 1:
         return []
 
@@ -227,6 +232,7 @@ def get_search_suggestions(query: str) -> List[str]:
 
 
 def navigate_to_tool(category: str, tool_name: str):
+    """Navigate to a specific tool"""
     # Set the selected category in session state
     st.session_state.selected_category = category
 
@@ -238,6 +244,7 @@ def navigate_to_tool(category: str, tool_name: str):
 
 
 def show_progress_bar(text: str, duration: int = 3):
+    """Show a progress bar with given text and duration"""
     progress_bar = st.progress(0)
     status_text = st.empty()
 
@@ -252,6 +259,7 @@ def show_progress_bar(text: str, duration: int = 3):
 
 
 def create_download_button(data: bytes, filename: str, mime_type: str = "application/octet-stream"):
+    """Create a download button for processed data"""
     return st.download_button(
         label=f"📥 Download {filename}",
         data=data,
@@ -261,6 +269,7 @@ def create_download_button(data: bytes, filename: str, mime_type: str = "applica
 
 
 def display_comparison(original_data, processed_data, title: str = "Comparison"):
+    """Display before/after comparison"""
     st.subheader(title)
     col1, col2 = st.columns(2)
 
@@ -280,6 +289,7 @@ def display_comparison(original_data, processed_data, title: str = "Comparison")
 
 
 def validate_file_type(uploaded_file, allowed_types: List[str]) -> bool:
+    """Validate uploaded file type"""
     if uploaded_file is None:
         return False
 
@@ -288,6 +298,7 @@ def validate_file_type(uploaded_file, allowed_types: List[str]) -> bool:
 
 
 def format_bytes(bytes_value: int) -> str:
+    """Format bytes to human readable format"""
     bytes_float = float(bytes_value)
     for unit in ['B', 'KB', 'MB', 'GB']:
         if bytes_float < 1024.0:
@@ -297,25 +308,30 @@ def format_bytes(bytes_value: int) -> str:
 
 
 def show_error_message(error: str, details: str = ""):
+    """Display formatted error message"""
     st.error(f"❌ {error}")
     if details:
         st.write(f"Details: {details}")
 
 
 def show_success_message(message: str):
+    """Display formatted success message"""
     st.success(f"✅ {message}")
 
 
 def show_info_message(message: str):
+    """Display formatted info message"""
     st.info(f"ℹ️ {message}")
 
 
 def create_tool_header(title: str, description: str = "", icon: str = "🛠️"):
+    """Create consistent tool header"""
     st.markdown(f"## {icon} {title}")
     st.markdown("---")
 
 
 def save_to_favorites(tool_name: str, settings: Dict[str, Any]):
+    """Save tool configuration to favorites"""
     favorite = {
         'id': str(uuid.uuid4()),
         'name': tool_name,
@@ -340,4 +356,3 @@ def load_from_favorites():
         index = favorite_names.index(selected)
         return st.session_state.favorites[index]
     return None
-
