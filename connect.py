@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import os
 import json
@@ -315,5 +316,6 @@ def display_contact_section():
     for i, faq in enumerate(faqs):
         with st.expander(f"**{faq['question']}**"):
             st.write(faq['answer'])
+
 
 
