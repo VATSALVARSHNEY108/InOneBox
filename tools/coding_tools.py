@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import streamlit.components.v1 as components
 import re
@@ -17,8 +18,6 @@ from utils.ai_client import ai_client
 
 
 def display_tools():
-    """Display all coding tools"""
-
     tool_categories = {
         "Code Editors": [
             "Syntax Highlighter", "Code Formatter", "Bracket Matcher", "Auto-Complete Simulator", "Code Snippets"
@@ -7192,5 +7191,6 @@ def convert_indentation(code, source_type, target_type, source_spaces, target_sp
             new_line = ' ' * (indent_level * target_spaces) + content
 
         converted_lines.append(new_line)
+
 
     return '\n'.join(converted_lines)
