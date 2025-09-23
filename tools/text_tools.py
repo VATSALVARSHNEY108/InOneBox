@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import re
 import base64
@@ -18,9 +19,6 @@ from utils.ai_client import ai_client
 
 
 def display_tools():
-    """Display all text processing tools"""
-
-    # Tool selection
     tool_categories = {
         "Text Conversion": [
             "Case Converter", "Base Converter", "Encoding Converter", "Format Converter"
@@ -2638,4 +2636,5 @@ For each category ({categories_text}), provide:
 
                 FileHandler.create_download_link(result.encode(), "moderation_report.txt", "text/plain")
             else:
+
                 st.error(f"Error analyzing content: {result}")
