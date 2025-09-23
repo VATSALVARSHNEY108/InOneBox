@@ -1,3 +1,4 @@
+__author__ = "VATSAL VARSHNEY"
 import streamlit as st
 import re
 import json
@@ -6182,4 +6183,5 @@ def error_logger():
                 st.rerun()
 
         else:
+
             st.info("No errors logged yet. Use the 'Log Errors' tab to add some.")
