@@ -97,12 +97,12 @@ def display_complete_portfolio():
         - **Software Engineering**: Developing robust, scalable solutions
 
         ### 🛠️ Technologies & Skills
-        - **Languages**: Python, JavaScript, SQL, C++
-        - **ML/AI**: TensorFlow, PyTorch, Scikit-learn, OpenAI API, Google Gemini
-        - **Web Development**: Streamlit, React, Node.js, HTML/CSS
-        - **Tools**: Git, Docker, Pandas, NumPy, Matplotlib, Seaborn
+        - **Languages**: Python, C++ , SQL 
+        - **ML/AI**: TensorFlow, PyTorch, Scikit-learn, LangChain , LangGraph  , Gooogle Gemini
+        - **Web Development**: Streamlit,Node.js, HTML/CSS , JavaScript
+        - **Tools**: Git, Docker, Pandas, NumPy, Matplotlib, Seaborn etc
         - **Cloud Platforms**: AWS, Google Cloud, Azure
-        - **Databases**: PostgreSQL, MongoDB, MySQL
+        - **Databases**: PostgreSQL, MySQL
 
         ### 🌟 This Toolkit Project
         This comprehensive digital toolkit showcases over 500 professional tools across various categories:
