@@ -8,8 +8,7 @@ from datetime import datetime
 from utils.common import create_tool_header, show_progress_bar, add_to_recent
 from utils.file_handler import FileHandler
 from utils.ai_client import ai_client
-from google_genai import genai
-
+from google import genai
 
 
 def build_enhanced_prompt(base_prompt, art_style, mood, image_quality, color_palette, lighting, detail_level,
@@ -4564,5 +4563,6 @@ Refinement Type: {refinement_type}"""
                         st.write(summary)
             else:
                 st.error("Failed to refine content. Please try again.")
+
 
 
