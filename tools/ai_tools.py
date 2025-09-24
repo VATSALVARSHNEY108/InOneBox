@@ -8,7 +8,7 @@ from datetime import datetime
 from utils.common import create_tool_header, show_progress_bar, add_to_recent
 from utils.file_handler import FileHandler
 from utils.ai_client import ai_client
-from google import genai
+from google_genai import genai
 
 
 
@@ -4564,4 +4564,5 @@ Refinement Type: {refinement_type}"""
                         st.write(summary)
             else:
                 st.error("Failed to refine content. Please try again.")
+
 
