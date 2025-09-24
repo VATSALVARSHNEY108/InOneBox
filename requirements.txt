@@ -19,6 +19,7 @@ packaging==25.0
 pandas==2.3.2
 pillow==11.3.0
 protobuf==6.32.0
+psycopg2-binary==2.9.10
 pyarrow==21.0.0
 pydeck==0.9.1
 python-dateutil==2.9.0.post0
@@ -39,11 +40,11 @@ opencv-python-headless==4.12.0.88
 psycopg2-binary==2.9.10
 qrcode[pil]
 opencv-python-headless
-psycopg2
 scikit-learn
 matplotlib
 cryptography
 seaborn
 openai
+
 
 
