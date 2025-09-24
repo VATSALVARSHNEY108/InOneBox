@@ -13,7 +13,7 @@ try:
     GEMINI_AVAILABLE = True
 except ImportError:
     GEMINI_AVAILABLE = False
-    
+
 
 # OpenAI integration for image generation - using openai SDK
 try:
