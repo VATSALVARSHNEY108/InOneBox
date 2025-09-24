@@ -37,4 +37,13 @@ urllib3==2.5.0
 watchdog==6.0.0
 opencv-python-headless==4.12.0.88
 psycopg2-binary==2.9.10
+qrcode[pil]
+opencv-python-headless
+psycopg2
+scikit-learn
+matplotlib
+cryptography
+seaborn
+openai
+
 
