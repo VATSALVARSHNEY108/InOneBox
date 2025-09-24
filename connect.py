@@ -9,34 +9,283 @@ from psycopg2.extras import RealDictCursor
 
 
 def display_connect_page():
-    """Display the Connect page with profile and feedback"""
-    # Profile page header
+    """Display the Portfolio page with all content in one place"""
+    # Portfolio page header
     st.markdown("""
     <div style="text-align: center; margin-bottom: 2rem;">
-        <h1>👨‍💻 About Me & Connect</h1>
+        <h1>👨‍💻 Portfolio & Professional Profile</h1>
         <div style="background: linear-gradient(45deg, #a8c8ff, #c4a7ff); 
                     -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
                     background-clip: text; font-size: 1.2rem; font-weight: 500;">
-            ✨ Learn about me, my work, and let's connect ✨
+            ✨ Comprehensive Portfolio - Everything in One Place ✨
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Profile Section
+    # Display all content in unified view
+    display_complete_portfolio()
+
+
+def display_complete_portfolio():
+    """Display all portfolio content in one unified view"""
+
+    # Profile Section with Photo and Bio
+    st.markdown("## 👨‍💻 Professional Profile")
+
+    # Profile layout
+    col1, col2 = st.columns([1, 2])
+
+    with col1:
+        # Profile image section
+        st.markdown("### 📸 Profile Photo")
+
+        # Check if profile image exists
+        profile_image_path = None
+        portfolio_dir = "attached_assets"
+        if os.path.exists(portfolio_dir):
+            # Look for profile image (you can upload one)
+            profile_images = [f for f in os.listdir(portfolio_dir)
+                              if f.lower().startswith('profile') and f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+            if profile_images:
+                profile_image_path = os.path.join(portfolio_dir, profile_images[0])
+
+        if profile_image_path and os.path.exists(profile_image_path):
+            try:
+                profile_image = Image.open(profile_image_path)
+                # Display high-quality, larger profile image
+                st.image(profile_image, width=400, caption="Vatsal Varshney - AI/ML Engineer")
+            except Exception as e:
+                st.error(f"Error loading profile image: {e}")
+        else:
+            # Placeholder for profile image - larger and higher quality
+            st.markdown("""
+            <div style="
+                width: 400px; 
+                height: 400px; 
+                background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 8rem;
+                margin: 1rem 0;
+                box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+                border: 4px solid rgba(255, 255, 255, 0.2);
+            ">
+                👨‍💻
+            </div>
+            """, unsafe_allow_html=True)
+            st.caption(
+                "Upload a profile image named 'profile.jpg' to display here (400x400px recommended for best quality)")
+
+    with col2:
+        # Professional information
+        st.markdown("### 👋 Hello, I'm Vatsal Varshney!")
+
+        st.markdown("""
+        **🤖 AI/ML Engineer**
+
+        I'm passionate about artificial intelligence and machine learning, creating innovative solutions 
+        that make a real difference. This comprehensive toolkit represents my commitment to making AI tools 
+        accessible and useful for everyone.
+
+        ### 🎯 What I Do
+        - **Machine Learning**: Building intelligent systems and predictive models
+        - **AI Development**: Creating AI-powered applications and tools
+        - **Data Science**: Extracting insights from complex datasets
+        - **Software Engineering**: Developing robust, scalable solutions
+
+        ### 🛠️ Technologies & Skills
+        - **Languages**: Python, JavaScript, SQL, C++
+        - **ML/AI**: TensorFlow, PyTorch, Scikit-learn, OpenAI API, Google Gemini
+        - **Web Development**: Streamlit, React, Node.js, HTML/CSS
+        - **Tools**: Git, Docker, Pandas, NumPy, Matplotlib, Seaborn
+        - **Cloud Platforms**: AWS, Google Cloud, Azure
+        - **Databases**: PostgreSQL, MongoDB, MySQL
+
+        ### 🌟 This Toolkit Project
+        This comprehensive digital toolkit showcases over 500 professional tools across various categories:
+        - AI and Machine Learning tools
+        - Image and video processing
+        - Data analysis and visualization
+        - Web development utilities
+        - Security and privacy tools
+        - And much more!
+        """)
+
     st.markdown("---")
-    st.subheader("👨‍💻 My Profile")
 
-    # Create tabs for different sections
-    tab1, tab2, tab3 = st.tabs(["👤 About Me", "📤 Upload Your Work", "💬 Connect & Feedback"])
+    # Projects & Achievements Section
+    st.markdown("## 🏆 Projects & Achievements")
 
-    with tab1:
-        display_profile_section()
+    projects_col1, projects_col2 = st.columns(2)
 
-    with tab2:
-        display_upload_section()
+    with projects_col1:
+        st.markdown("""
+        ### 🚀 Featured Projects
 
-    with tab3:
-        display_contact_section()
+        **🛠️ Ultimate Digital Toolkit** (Current Project)
+        - 500+ professional tools in one platform
+        - AI-powered features with OpenAI and Google Gemini integration
+        - Real-time data processing and visualization
+        - Built with Streamlit, Python, and PostgreSQL
+
+        **🤖 AI/ML Applications**
+        - Machine learning model implementations
+        - Computer vision projects
+        - Natural language processing tools
+        - Predictive analytics solutions
+
+        **📊 Data Science Projects**
+        - Advanced statistical analysis tools
+        - Interactive data visualization dashboards
+        - Data cleaning and preprocessing utilities
+        - Business intelligence solutions
+        """)
+
+    with projects_col2:
+        st.markdown("""
+        ### 🎓 Education & Certifications
+
+        **🎯 Competitive Programming**
+        - Active on LeetCode and Codeforces
+        - Problem-solving in algorithms and data structures
+        - Regular participation in coding competitions
+
+        **📚 Continuous Learning**
+        - Machine Learning and AI courses
+        - Cloud computing certifications
+        - Web development bootcamps
+        - Open source contributions
+
+        **🔬 Research Interests**
+        - Artificial Intelligence applications
+        - Machine Learning optimization
+        - Data science methodologies
+        - Software engineering best practices
+        """)
+
+    st.markdown("---")
+
+    # Contact & Social Links Section
+    st.markdown("## 🌐 Connect With Me")
+
+    contact_col1, contact_col2 = st.columns(2)
+
+    with contact_col1:
+        st.markdown("### 🔗 Find Me Online")
+
+        # Social and contact links
+        social_links = [
+            ("🐙 **GitHub**", "https://github.com/VATSALVARSHNEY108", "View my projects and code repositories"),
+            ("💼 **LinkedIn**", "https://www.linkedin.com/feed/", "Connect with me professionally"),
+            ("📧 **Email**", "mailto:vatsalworkingat19.com", "Send me a direct email"),
+            ("📞 **Contact**", "tel:+919068633298", "Call me or WhatsApp for discussions"),
+            ("🟧 **LeetCode**", "https://leetcode.com/u/VATSAL_VARSHNEY/", "Check out my coding solutions"),
+            ("🔵 **Codeforces**", "https://codeforces.com/profile/Vatsal_Varshney-69",
+             "View my competitive programming profile")
+        ]
+
+        for icon_name, link, description in social_links:
+            st.markdown(f"{icon_name} [{description}]({link})")
+
+    with contact_col2:
+        st.markdown("### 💬 Send Me a Message")
+
+        # Feedback form
+        feedback_type = st.selectbox("Message Type", [
+            "Project Collaboration", "Job Opportunity", "Technical Question",
+            "Feedback on Toolkit", "General Inquiry", "Compliment"
+        ])
+
+        name = st.text_input("Your Name", placeholder="Your full name")
+        email = st.text_input("Your Email", placeholder="your@email.com")
+        subject = st.text_input("Subject", placeholder="Brief description of your message")
+        message = st.text_area("Message", height=150,
+                               placeholder="Tell me more about your inquiry, project idea, or feedback...")
+
+        if st.button("📤 Send Message", type="primary", use_container_width=True):
+            if message and subject and name and email:
+                # Save feedback to database
+                try:
+                    conn = psycopg2.connect(os.getenv('DATABASE_URL'))
+                    cursor = conn.cursor()
+
+                    insert_query = """
+                    INSERT INTO user_feedback (feedback_type, name, email, subject, message)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """
+
+                    cursor.execute(insert_query, (
+                        feedback_type, name, email, subject, message
+                    ))
+
+                    conn.commit()
+                    cursor.close()
+                    conn.close()
+
+                    st.success("✅ Thank you for your message! I'll get back to you soon.")
+                    st.balloons()
+
+                except Exception as e:
+                    st.error(f"❌ Sorry, there was an error sending your message. Please try again. Error: {e}")
+            else:
+                st.error("Please fill in all fields (name, email, subject, and message).")
+
+    st.markdown("---")
+
+    # FAQ Section
+    st.markdown("## ❓ Frequently Asked Questions")
+
+    faq_col1, faq_col2 = st.columns(2)
+
+    with faq_col1:
+        st.markdown("### 🛠️ About the Toolkit")
+
+        faqs_toolkit = [
+            ("Is this toolkit free to use?",
+             "Yes! Most tools are completely free. Some AI-powered features require API keys from providers like Google (Gemini) or OpenAI."),
+            ("How many tools are available?",
+             "Over 500 professional tools across 13+ categories including AI, data analysis, web development, security, and more."),
+            ("Can I use these tools for commercial projects?",
+             "Yes! The tools are designed for both personal and commercial use. Just make sure to comply with any third-party API terms of service.")
+        ]
+
+        for question, answer in faqs_toolkit:
+            with st.expander(f"**{question}**"):
+                st.write(answer)
+
+    with faq_col2:
+        st.markdown("### 🤝 Collaboration & Support")
+
+        faqs_collab = [
+            ("How can I collaborate with you?",
+             "I'm always open to interesting projects! Reach out via email or LinkedIn with your project details and how you think we can work together."),
+            ("Do you offer consulting services?",
+             "Yes! I provide consulting for AI/ML projects, data science initiatives, and software development. Contact me to discuss your specific needs."),
+            ("How can I contribute to your projects?",
+             "Check out my GitHub repositories! I welcome contributions, bug reports, and feature requests. You can also provide feedback through the contact form.")
+        ]
+
+        for question, answer in faqs_collab:
+            with st.expander(f"**{question}**"):
+                st.write(answer)
+
+    # Footer
+    st.markdown("---")
+    st.markdown("""
+    <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(168, 200, 255, 0.1), rgba(196, 167, 255, 0.1)); border-radius: 10px; margin: 2rem 0;">
+        <h3>🚀 Let's Build Something Amazing Together!</h3>
+        <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+            Whether you're looking to collaborate on exciting projects, need AI/ML expertise, 
+            or just want to connect with a fellow tech enthusiast, I'd love to hear from you!
+        </p>
+        <p style="font-weight: bold; color: #667eea;">
+            📧 vatsalworkingat19.com | 📱 +91-9068633298
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 def display_profile_section():
@@ -106,8 +355,8 @@ def display_profile_section():
         - **Software Engineering**: Developing robust, scalable solutions
 
         ### 🛠️ Technologies & Skills
-        - **Languages**: Python, C++ , SQL
-        - **ML/AI**: TensorFlow, PyTorch, Scikit-learn, LangChain , LangGraph
+        - **Languages**: Python, JavaScript, SQL
+        - **ML/AI**: TensorFlow, PyTorch, Scikit-learn, OpenAI API
         - **Tools**: Streamlit, Pandas, NumPy, Git, Docker
         - **Cloud**: AWS, Google Cloud, Azure
 
@@ -122,99 +371,6 @@ def display_upload_section():
     """Display the upload section for new portfolio items"""
     st.markdown("### 📤 Share Your Creative Work")
     st.markdown("Upload your photos, artwork, or creative projects to showcase in the portfolio gallery!")
-
-    # Upload form
-    uploaded_files = st.file_uploader(
-        "Choose files to upload",
-        type=['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp'],
-        accept_multiple_files=True,
-        help="Upload images in PNG, JPG, JPEG, GIF, BMP, or WebP format"
-    )
-
-    if uploaded_files:
-        st.subheader(f"📋 {len(uploaded_files)} file(s) ready to upload")
-
-        # Project details
-        col1, col2 = st.columns(2)
-
-        with col1:
-            project_title = st.text_input("Project Title", placeholder="My Amazing Project")
-            project_category = st.selectbox("Category", [
-                "Photography", "Digital Art", "UI/UX Design",
-                "Web Development", "Graphics", "Other"
-            ])
-
-        with col2:
-            artist_name = st.text_input("Artist/Creator Name", placeholder="Your Name")
-            project_description = st.text_area("Description",
-                                               placeholder="Tell us about your project...",
-                                               height=100)
-
-        # Preview uploaded files
-        st.subheader("🖼️ Preview")
-        preview_cols = st.columns(min(len(uploaded_files), 4))
-
-        for i, uploaded_file in enumerate(uploaded_files):
-            with preview_cols[i % 4]:
-                try:
-                    image = Image.open(uploaded_file)
-                    st.image(image, caption=uploaded_file.name, use_column_width=True)
-                    st.write(f"**Size:** {image.size}")
-                    st.write(f"**Format:** {image.format}")
-                except Exception as e:
-                    st.error(f"Error previewing {uploaded_file.name}: {e}")
-
-        # Upload button
-        if st.button("🚀 Add to Portfolio", type="primary"):
-            try:
-                # Create portfolio directory if it doesn't exist
-                portfolio_dir = "attached_assets"
-                os.makedirs(portfolio_dir, exist_ok=True)
-
-                uploaded_count = 0
-                for uploaded_file in uploaded_files:
-                    # Save file
-                    file_path = os.path.join(portfolio_dir, uploaded_file.name)
-                    with open(file_path, "wb") as f:
-                        f.write(uploaded_file.getbuffer())
-                    uploaded_count += 1
-
-                # Create metadata file
-                metadata = {
-                    "upload_date": datetime.now().isoformat(),
-                    "project_title": project_title,
-                    "category": project_category,
-                    "artist_name": artist_name,
-                    "description": project_description,
-                    "files": [f.name for f in uploaded_files]
-                }
-
-                metadata_path = os.path.join(portfolio_dir, f"metadata_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
-                with open(metadata_path, 'w') as f:
-                    json.dump(metadata, f, indent=2)
-
-                st.success(f"✅ Successfully uploaded {uploaded_count} file(s) to portfolio!")
-                st.balloons()
-
-                # Show upload summary
-                with st.expander("📋 Upload Summary"):
-                    st.json(metadata)
-
-            except Exception as e:
-                st.error(f"Error uploading files: {e}")
-
-    else:
-        st.info("👆 Choose files above to get started")
-
-        # Upload guidelines
-        st.markdown("### 📝 Upload Guidelines")
-        st.markdown("""
-        - **File Format:** PNG, JPG, JPEG, GIF, BMP, WebP
-        - **File Size:** Maximum 10MB per file
-        - **Quality:** High resolution images work best
-        - **Content:** Original work or properly attributed content only
-        - **Categories:** Choose the most appropriate category for your work
-        """)
 
 
 def display_contact_section():
@@ -346,5 +502,3 @@ def display_contact_section():
     for i, faq in enumerate(faqs):
         with st.expander(f"**{faq['question']}**"):
             st.write(faq['answer'])
-
-
