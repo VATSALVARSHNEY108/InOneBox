@@ -1,13 +1,13 @@
 altair==5.5.0
 attrs==25.3.0
 blinker==1.9.0
-cachetools==6.2.0
+cachetools>=2.0.0,<6.0
 certifi==2025.8.3
 charset-normalizer==3.4.3
 click==8.2.1
 gitdb==4.0.12
 gitpython==3.1.45
-google-genai
+google-genai==1.38.0
 idna==3.10
 jinja2==3.1.6
 jsonschema==4.25.1
@@ -27,7 +27,6 @@ referencing==0.36.2
 requests==2.32.5
 rpds-py==0.27.1
 six==1.17.0
-smmap==5.0.2
 streamlit==1.49.1
 tenacity==9.1.2
 toml==0.10.2
@@ -36,11 +35,5 @@ typing-extensions==4.15.0
 tzdata==2025.2
 urllib3==2.5.0
 watchdog==6.0.0
-qrcode[pil]
-opencv-python-headless
-psycopg2
-scikit-learn
-matplotlib
-cryptography
-seaborn
-openai
+opencv-python-headless==4.12.0.88
+psycopg2-binary==2.9.10
