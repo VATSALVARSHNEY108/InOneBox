@@ -11,7 +11,7 @@ import tempfile
 
 # Gemini integration for multimodal AI - using google-genai SDK
 try:
-    from google import genai
+    import google.generativeai as genai
     from google.genai import types
 
     GEMINI_AVAILABLE = True
@@ -444,4 +444,5 @@ class AIClient:
 
 # Global AI client instance
 ai_client = AIClient()
+
 
