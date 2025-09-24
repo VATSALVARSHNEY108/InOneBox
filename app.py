@@ -1,8 +1,11 @@
 __author__ = "VATSAL VARSHNEY"
+
 import streamlit as st
 import sys
 from pathlib import Path
+
 from connect import display_connect_page
+from admin_feedback import display_admin_feedback_page
 
 # Add project root to Python path for local development
 project_root = Path(__file__).parent.absolute()
@@ -11,8 +14,8 @@ if str(project_root) not in sys.path:
 
 from utils.common import init_session_state, display_tool_grid, search_tools, navigate_to_tool, get_search_suggestions
 from tools import (
-    text_tools, image_tools, security_tools, css_tools, coding_tools,
-    audio_video_tools, file_tools, ai_tools, social_media_tools,
+    ai_tools, text_tools, image_tools, security_tools, css_tools, coding_tools,
+    audio_video_tools, file_tools, social_media_tools,
     color_tools, web_dev_tools, seo_marketing_tools, data_tools,
     science_math_tools
 )
@@ -24,7 +27,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-
 
 # Initialize session state
 init_session_state()
@@ -129,16 +131,14 @@ TOOL_CATEGORIES = {
         "color": "#FFFFFF",
         "background-color": "#000000"
     },
-    "Connect":{
-        "icon": "🤪",
-        "description": "Web development and testing utilities",
+    "Portfolio": {
+        "icon": "📁",
+        "description": "Portfolio and project showcase",
         "module": web_dev_tools,
         "color": "#FFFFFF",
         "background-color": "#000000"
     }
 }
-
-
 
 
 def main():
@@ -155,25 +155,40 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
+    # Top Navigation Bar
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, rgba(168, 200, 255, 0.1), rgba(196, 167, 255, 0.1)); 
+                padding: 1rem; border-radius: 10px; margin-bottom: 2rem;
+                border: 1px solid rgba(255, 255, 255, 0.2);">
+    """, unsafe_allow_html=True)
 
     # Top navigation columns
-    nav_col1, nav_col2 = st.columns([3,4])
+    nav_col1, nav_col2, nav_col3 = st.columns([3, 3, 2])
 
     with nav_col1:
         # Search functionality with advanced features
         search_query = st.text_input("🔍 Search Tools", placeholder="Type to search...", key="search_tools")
+        # Search filter for category-specific searches
+        search_filter = "All"
+
     with nav_col2:
-        # Category selection
+        # Category selection (removed Connect from options)
         selected_category = st.selectbox(
             "🎯 Select Category",
-            ["Dashboard", "Connect"] + list(TOOL_CATEGORIES.keys()),
+            ["Dashboard", "Admin Feedback"] + list(TOOL_CATEGORIES.keys()),
             index=0 if 'selected_category' not in st.session_state else
-            (["Dashboard", "Connect"] + list(TOOL_CATEGORIES.keys())).index(
+            (["Dashboard", "Admin Feedback"] + list(TOOL_CATEGORIES.keys())).index(
                 st.session_state.selected_category) if st.session_state.selected_category in (
-                    ["Dashboard", "Connect"] + list(TOOL_CATEGORIES.keys())) else 0
+                    ["Dashboard", "Admin Feedback"] + list(TOOL_CATEGORIES.keys())) else 0
         )
 
-    # Display search suggestions and results
+    with nav_col3:
+        # Portfolio button on the right side
+        st.markdown("<br>", unsafe_allow_html=True)  # Add some spacing
+        if st.button("👉Portfolio👈", type="primary", use_container_width=True):
+            selected_category = "Portfolio"
+
+            # Display search suggestions and results
     if search_query:
         # Show search suggestions
         if len(search_query) >= 1:
@@ -220,8 +235,10 @@ def main():
     st.markdown("</div>", unsafe_allow_html=True)
 
     # Main content area
-    if selected_category == "Connect":
+    if selected_category == "Portfolio":
         display_connect_page()
+    elif selected_category == "Admin Feedback":
+        display_admin_feedback_page()
     elif selected_category == "Dashboard" or 'selected_category' not in st.session_state:
         # Dashboard view
         st.markdown("""
@@ -257,7 +274,6 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()
 
 
